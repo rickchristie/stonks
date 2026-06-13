@@ -1,0 +1,70 @@
+{
+	"version": 1,
+	"description": "Shared local allow-list rules for agent permission hooks. Keep rules narrow, repo-owned, and covered by scripts/allow-command-test.py.",
+	"rules": [
+		{
+			"id": "setup",
+			"kind": "exact",
+			"argv": ["./scripts/setup.sh"],
+			"why": "Repo-owned dependency setup wrapper."
+		},
+		{
+			"id": "dev-health",
+			"kind": "prefix",
+			"argv": ["./scripts/dev-health.sh"],
+			"why": "Repo-owned bounded local health check."
+		},
+		{
+			"id": "dev-backend",
+			"kind": "prefix",
+			"argv": ["./scripts/dev-backend.sh"],
+			"why": "Repo-owned backend dev server wrapper."
+		},
+		{
+			"id": "dev-web",
+			"kind": "prefix",
+			"argv": ["./scripts/dev-web.sh"],
+			"why": "Repo-owned web dev server wrapper."
+		},
+		{
+			"id": "dev-web-clean",
+			"kind": "prefix",
+			"argv": ["./scripts/dev-web-clean.sh"],
+			"why": "Repo-owned web dev cache reset wrapper."
+		},
+		{
+			"id": "dev-psql-target",
+			"kind": "exact",
+			"argv": ["./scripts/dev-psql.sh", "--target"],
+			"why": "Prints configured local DB target without credentials."
+		},
+		{
+			"id": "backend-tests",
+			"kind": "prefix",
+			"argv": ["go", "test"],
+			"cwd": "backend",
+			"why": "Backend Go verification from backend directory."
+		},
+		{
+			"id": "web-check",
+			"kind": "exact",
+			"argv": ["npm", "run", "check"],
+			"cwd": "web",
+			"why": "Frontend Svelte type/static check."
+		},
+		{
+			"id": "web-unit-tests",
+			"kind": "prefix",
+			"argv": ["npm", "test"],
+			"cwd": "web",
+			"why": "Frontend unit tests."
+		},
+		{
+			"id": "playwright-tests",
+			"kind": "prefix",
+			"argv": ["npx", "playwright", "test"],
+			"cwd": "web/playtest",
+			"why": "Playwright tests from the playtest project."
+		}
+	]
+}

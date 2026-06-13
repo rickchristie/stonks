@@ -1,0 +1,27 @@
+.playwright-mcp/
+node_modules/
+web/node_modules/
+web/playtest/node_modules/
+web/playtest/test-results/
+web/playtest/.shots/
+logs/
+
+.pgflock/up.log
+
+test-results/
+backend/test-results/
+web/test-results/
+
+# Environment files and local secrets.
+.env
+*.env
+
+# Build artifacts.
+backend/bin/
+web/build/
+web/.svelte-kit/
+web/node_modules/.vite/
+release/.build/
+
+# Local database backups belong on disk, not in history.
+release/backups/

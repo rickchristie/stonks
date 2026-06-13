@@ -1,0 +1,28 @@
+#!/bin/bash
+# pgflock PostgreSQL image initializer.
+
+NUM_DBS=10
+echo "Setup ${NUM_DBS} test databases"
+
+cd /var/lib/postgresql || exit
+
+echo 'Creating user... (ignore role already exists error for re-runs)'
+psql -c "CREATE USER tester WITH PASSWORD 'pgflock' CREATEDB;"
+psql -c "ALTER ROLE tester SUPERUSER;"
+psql -c "CREATE DATABASE tester WITH ENCODING 'UTF8' LC_COLLATE='en_US.UTF-8' LC_CTYPE='en_US.UTF-8' TEMPLATE=template0;"
+psql -c "ALTER DATABASE tester OWNER TO tester;"
+psql -d tester -c "ALTER SCHEMA public OWNER TO tester;"
+echo 'User creation done.'
+
+PGPASSWORD=pgflock psql -U tester -c "CREATE DATABASE test_template WITH ENCODING 'UTF8' LC_COLLATE='en_US.UTF-8' LC_CTYPE='en_US.UTF-8' TEMPLATE=template0;"
+PGPASSWORD=pgflock psql -U tester -d test_template -c 'VACUUM FREEZE;'
+PGPASSWORD=pgflock psql -U tester -d test_template -c "UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'test_template';"
+
+echo 'Database creation... (ignore already exists errors for re-runs)'
+for i in $(seq 1 ${NUM_DBS}); do
+	echo "Create database tester${i}"
+	psql -c "CREATE DATABASE tester${i} WITH ENCODING 'UTF8' LC_COLLATE='en_US.UTF-8' LC_CTYPE='en_US.UTF-8' TEMPLATE=template0;"
+	psql -c "ALTER DATABASE tester${i} OWNER TO tester;"
+	psql -d "tester${i}" -c "ALTER SCHEMA public OWNER to tester;"
+	echo "tester${i} created."
+done

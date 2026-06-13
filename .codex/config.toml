@@ -1,0 +1,17 @@
+# Project-local Codex config layer.
+#
+# The repo-owned allow-list script is the source of truth for recurring
+# dev/test approvals. Keep new approvals narrow and covered by
+# scripts/allow-command-test.py.
+
+[features]
+hooks = true
+
+[[hooks.PermissionRequest]]
+matcher = "^Bash$"
+
+[[hooks.PermissionRequest.hooks]]
+type = "command"
+command = '/usr/bin/python3 "$(git rev-parse --show-toplevel)/scripts/allow-command.py" --codex'
+timeout = 5
+statusMessage = "Checking app-template dev command"

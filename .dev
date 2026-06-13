@@ -1,0 +1,23 @@
+# Required local development config for this checkout.
+# After copying the template, change DB_NAME and ports before starting servers.
+
+DEV_BACKEND_HOST=localhost
+DEV_BACKEND_PORT=38080
+DEV_WEB_HOST=localhost
+DEV_WEB_PORT=35173
+
+# Empty bind host preserves Go server ":PORT" behavior.
+BACKEND_HOST=
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=app_template
+DB_PASSWORD=app_template_local_dev_pwd
+DB_NAME=app_template
+
+JWT_SECRET=app-template-jwt-secret-change-in-production
+
+CORS_ALLOWED_ORIGINS=http://localhost:35173
+VITE_API_BASE=http://localhost:38080
+PLAYWRIGHT_BASE_URL=http://localhost:35173
+PLAYWRIGHT_API_BASE=http://localhost:38080

@@ -1,0 +1,31 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "dev: backend",
+			"type": "shell",
+			"command": "./scripts/dev-backend.sh",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "dev: web",
+			"type": "shell",
+			"command": "./scripts/dev-web.sh",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "test: backend",
+			"type": "shell",
+			"command": "cd backend && go test ./...",
+			"problemMatcher": "$go"
+		},
+		{
+			"label": "test: web",
+			"type": "shell",
+			"command": "cd web && npm run check && npm test",
+			"problemMatcher": []
+		}
+	]
+}

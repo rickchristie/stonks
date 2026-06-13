@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--color-bg: 246 244 239;
+	--color-panel: 255 255 255;
+	--color-ink: 31 35 32;
+	--color-muted: 94 101 96;
+	--color-line: 214 211 202;
+	--color-accent: 26 96 86;
+	--color-warn: 178 73 43;
+	--font-content: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+	--font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+html,
+body {
+	margin: 0;
+	min-height: 100%;
+	background: rgb(var(--color-bg));
+	color: rgb(var(--color-ink));
+	font-family: var(--font-content);
+	letter-spacing: 0;
+}
+
+button,
+input,
+textarea {
+	font: inherit;
+}
+
+a {
+	color: inherit;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+	background: rgb(var(--color-line));
+	border-radius: 999px;
+}
