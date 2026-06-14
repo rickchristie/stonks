@@ -4,7 +4,7 @@
  * this narrow failure class so the browser fetches the current asset graph
  * instead of leaving the user on SvelteKit's generic error page.
  */
-const DYNAMIC_IMPORT_RECOVERY_KEY = 'app-template-dynamic-import-recovery';
+const DYNAMIC_IMPORT_RECOVERY_KEY = 'stonks-dynamic-import-recovery';
 const RECOVERY_WINDOW_MS = 15000;
 const DYNAMIC_IMPORT_FAILURE_RE =
 	/(Failed to fetch dynamically imported module|Importing a module script failed|error loading dynamically imported module)/i;

@@ -5,10 +5,10 @@ import (
 	"errors"
 	"strings"
 
-	"app-template/accessor/db"
-	accsNote "app-template/accessor/note"
-	"app-template/lib/mend"
-	svcNote "app-template/service/note/lib"
+	"stonks/accessor/db"
+	accsNote "stonks/accessor/note"
+	"stonks/lib/mend"
+	svcNote "stonks/service/note/lib"
 )
 
 var logger = mend.NewZerologLogger("svcNote")

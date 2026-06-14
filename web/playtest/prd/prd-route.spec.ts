@@ -2,9 +2,9 @@ import { test, expect } from '../fixtures';
 
 test('renders PRD and storybook routes', async ({ page }) => {
 	await page.goto('/prd');
-	await expect(page.getByRole('heading', { name: 'App Template' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Stonks' })).toBeVisible();
 	await expect(
-		page.getByLabel('PRD navigation').getByRole('link', { name: 'Hello World Template' })
+		page.getByLabel('PRD navigation').getByRole('link', { name: 'Stonks Hello World' })
 	).toBeVisible();
 
 	await page.goto('/prd/storybook');

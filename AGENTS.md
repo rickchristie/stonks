@@ -22,9 +22,9 @@
 - **DO NOT excessively nil check**. Treat pointer/interface parameters/struct fields as required unless explicitly documented optional.
   If caller sends nil, then nil pointer panic is fine. Fail fast, unless we truly need the recovery.
 
-## Template Goal
+## Stonks Goal
 
-This repository is an app template for agentic development. It should preserve the operating model extracted from Mark: one repo for backend, frontend, PRD, tests, scripts, and release context. Prefer improving the reusable pattern over adding one-off app-specific shortcuts.
+This repository is for Stonks, Rick's app for researching stocks, managing portfolios, and later automating trades.
 
 ## Documentation
 
@@ -92,7 +92,7 @@ Import aliases:
 
 - Prefer direct commands; use `bash -lc` only when shell semantics are required.
 - Repo-local config is read from `.dev`. Scripts must fail if `.dev` is missing or incomplete.
-- Keep `.dev` committed in this template with non-secret local defaults; real app secrets still belong in ignored `.env` files or server config.
+- Keep `.dev` committed in this repo with non-secret local defaults; real app secrets still belong in ignored `.env` files or server config.
 - Start dev servers as background processes through scripts so logs and ports are consistent:
   - `setsid -f ./scripts/dev-backend.sh`
   - `setsid -f ./scripts/dev-web.sh`

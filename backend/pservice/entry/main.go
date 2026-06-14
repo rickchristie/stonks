@@ -5,11 +5,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	accsNote "app-template/accessor/note"
-	"app-template/lib/lb"
-	psNote "app-template/pservice/app/note"
-	"app-template/pservice/middleware"
-	svcNote "app-template/service/note"
+	accsNote "stonks/accessor/note"
+	"stonks/lib/lb"
+	psNote "stonks/pservice/app/note"
+	"stonks/pservice/middleware"
+	svcNote "stonks/service/note"
 )
 
 var Version = "dev"

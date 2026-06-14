@@ -7,9 +7,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 BUILD_DIR="$PROJECT_ROOT/release/.build"
-SSH_HOST="${APP_PROD_SSH_HOST:-app-template-prod-1}"
-APP_ROOT="${APP_PROD_ROOT:-/opt/app-template}"
-SERVICE_NAME="${APP_PROD_SERVICE_NAME:-app-template-backend}"
+SSH_HOST="${APP_PROD_SSH_HOST:-stonks-prod-1}"
+APP_ROOT="${APP_PROD_ROOT:-/opt/stonks}"
+SERVICE_NAME="${APP_PROD_SERVICE_NAME:-stonks-backend}"
 VERSION="$(tr -d '\n' < "$PROJECT_ROOT/VERSION")"
 
 usage() {
@@ -18,9 +18,9 @@ Usage:
   ./scripts/release.sh [--skip-frontend] [--skip-backend]
 
 Environment:
-  APP_PROD_SSH_HOST       SSH host, default app-template-prod-1
-  APP_PROD_ROOT           Production root, default /opt/app-template
-  APP_PROD_SERVICE_NAME   Systemd service, default app-template-backend
+  APP_PROD_SSH_HOST       SSH host, default stonks-prod-1
+  APP_PROD_ROOT           Production root, default /opt/stonks
+  APP_PROD_SERVICE_NAME   Systemd service, default stonks-backend
 EOF
 }
 
@@ -56,7 +56,7 @@ mkdir -p "$BUILD_DIR"
 
 if [ "$SKIP_BACKEND" = false ]; then
 	cd "$PROJECT_ROOT/backend"
-	GOOS=linux GOARCH=amd64 go build -ldflags "-X main.Version=$VERSION" -o "$BUILD_DIR/app-template-backend" ./pservice/entry/
+	GOOS=linux GOARCH=amd64 go build -ldflags "-X main.Version=$VERSION" -o "$BUILD_DIR/stonks-backend" ./pservice/entry/
 fi
 
 if [ "$SKIP_FRONTEND" = false ]; then
@@ -68,15 +68,15 @@ fi
 
 if [ "$SKIP_BACKEND" = false ]; then
 	ssh "$SSH_HOST" "sudo systemctl stop $SERVICE_NAME 2>/dev/null || true"
-	scp "$BUILD_DIR/app-template-backend" "$SSH_HOST:/tmp/app-template-backend"
-	ssh "$SSH_HOST" "sudo mkdir -p $APP_ROOT/backend && sudo mv /tmp/app-template-backend $APP_ROOT/backend/app-template-backend && sudo chmod +x $APP_ROOT/backend/app-template-backend"
+	scp "$BUILD_DIR/stonks-backend" "$SSH_HOST:/tmp/stonks-backend"
+	ssh "$SSH_HOST" "sudo mkdir -p $APP_ROOT/backend && sudo mv /tmp/stonks-backend $APP_ROOT/backend/stonks-backend && sudo chmod +x $APP_ROOT/backend/stonks-backend"
 fi
 
 if [ "$SKIP_FRONTEND" = false ]; then
 	cd "$BUILD_DIR"
 	tar -czf web.tar.gz -C web .
-	scp web.tar.gz "$SSH_HOST:/tmp/app-template-web.tar.gz"
-	ssh "$SSH_HOST" "sudo mkdir -p $APP_ROOT/web && sudo rm -rf $APP_ROOT/web/* && sudo tar -xzf /tmp/app-template-web.tar.gz -C $APP_ROOT/web && rm /tmp/app-template-web.tar.gz"
+	scp web.tar.gz "$SSH_HOST:/tmp/stonks-web.tar.gz"
+	ssh "$SSH_HOST" "sudo mkdir -p $APP_ROOT/web && sudo rm -rf $APP_ROOT/web/* && sudo tar -xzf /tmp/stonks-web.tar.gz -C $APP_ROOT/web && rm /tmp/stonks-web.tar.gz"
 fi
 
 if [ "$SKIP_BACKEND" = false ]; then

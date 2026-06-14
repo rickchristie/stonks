@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"time"
 
-	"app-template/accessor/db"
-	"app-template/lib/lb"
-	"app-template/lib/mend"
-	"app-template/lib/tr"
+	"stonks/accessor/db"
+	"stonks/lib/lb"
+	"stonks/lib/mend"
+	"stonks/lib/tr"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
 )

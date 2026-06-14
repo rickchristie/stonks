@@ -1,6 +1,6 @@
 package note
 
-import "app-template/data"
+import "stonks/data"
 
 type TransactionWriter interface {
 	TransactionReader

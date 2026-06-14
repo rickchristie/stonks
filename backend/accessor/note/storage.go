@@ -3,10 +3,10 @@ package note
 import (
 	"context"
 
-	"app-template/accessor/db/pg"
-	"app-template/lib/lb"
-	"app-template/lib/mend"
-	"app-template/lib/tr"
+	"stonks/accessor/db/pg"
+	"stonks/lib/lb"
+	"stonks/lib/mend"
+	"stonks/lib/tr"
 )
 
 type Storage interface {

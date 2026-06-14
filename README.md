@@ -1,8 +1,8 @@
-# App Template
+# Stonks
 
-Reusable monorepo template for agentic product development. The template keeps backend, frontend, product docs, tests, local runtime config, and release context in one repository so every agent session has the same operating model.
+Stonks is Rick's app for researching stocks, managing portfolios, and later automating trades. This repository is currently in preparation mode: the product has not been built yet, but the full-stack operating model is ready for step-by-step implementation.
 
-## What This Extracts From Mark
+## What Is Ready
 
 - One repository for Go backend, Svelte frontend, Playwright, PRD, release docs, and infrastructure scripts.
 - Repo-local `.dev` runtime config so multiple checkouts can run separate ports and databases.
@@ -16,7 +16,7 @@ Reusable monorepo template for agentic product development. The template keeps b
 - Release directory for deployment docs, migration scripts, smoke checks, and production troubleshooting notes.
 - Root `AGENTS.md` as the operating manual for future agent sessions.
 
-See [docs/extracted-from-mark.md](docs/extracted-from-mark.md) for the full extraction checklist and the choices intentionally left as placeholders.
+See [docs/stonks-repo-prep.md](docs/stonks-repo-prep.md) for the preparation notes and the choices intentionally left for the real Stonks build.
 
 ## Layout
 
@@ -25,9 +25,9 @@ backend/          Go backend: data, accessor, service, pservice
 web/              Svelte 5 static frontend, PRD, storybook, unit tests
 web/playtest/     Playwright integration tests
 scripts/          Local dev, health, database, and test helpers
-skills/           Canonical AI skills used by this template
+skills/           Canonical AI skills used by this repo
 release/          Production deployment docs, changelog, migrations
-docs/             Template rationale and extraction notes
+docs/             Stonks preparation notes
 .pgflock/         pgflock config for isolated PostgreSQL test DBs
 ```
 
@@ -59,7 +59,7 @@ cd web/playtest && npx playwright test
 ./scripts/dev-health.sh
 ```
 
-The app first screen is a Hello World page that calls `/api/hello`; that backend route reads the seeded database row before responding. Backend health is available at `/health-check` and `/version`. Frontend PRD is dev-only at `/prd`.
+The app first screen is still a Hello World verification page that calls `/api/hello`; that backend route reads the seeded database row before responding. Keep it until the first real Stonks workflow has equivalent backend, frontend, and browser coverage. Backend health is available at `/health-check` and `/version`. Frontend PRD is dev-only at `/prd`.
 
 ## Agent Allow List
 
@@ -74,14 +74,6 @@ python3 scripts/allow-command.py --check -- ./scripts/dev-health.sh
 python3 scripts/allow-command.py --json -- bash -lc 'cd backend && go test ./...'
 ```
 
-## Template Customization
+## Stonks Build Notes
 
-Rename the module and product strings before using this as a real app:
-
-- `backend/go.mod` module path.
-- `web/package.json` package names.
-- `.dev` and `.dev.example` database/user names and default ports if needed.
-- `release/README.md`, `scripts/release.sh`, production helper scripts, systemd service name, SSH host, and production paths.
-- PRD documents under `web/src/lib/prd/documents`, the registry in `web/src/lib/prd/static-documents.ts`, and route files under `web/src/routes/prd`.
-
-Do not remove the example `note` domain until the replacement domain has accessor, service, pservice, unit, and playtest coverage. It is intentionally small but demonstrates the architecture.
+The repository identity has been renamed to Stonks, but the example `note` domain remains as working scaffolding. Do not remove it until the replacement Stonks domain has accessor, service, pservice, unit, and playtest coverage. It is intentionally small but demonstrates the architecture future product work should follow.

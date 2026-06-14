@@ -1,4 +1,4 @@
-module app-template
+module stonks
 
 go 1.25
 

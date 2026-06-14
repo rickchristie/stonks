@@ -11,7 +11,7 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 source "$SCRIPT_DIR/dev-env.sh"
 
-TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/app-template-dev-health.XXXXXX")"
+TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/stonks-dev-health.XXXXXX")"
 
 BACKEND_BASE="http://${DEV_BACKEND_HOST}:${BACKEND_PORT}"
 WEB_BASE="http://${DEV_WEB_HOST}:${DEV_WEB_PORT}"

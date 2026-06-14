@@ -1,5 +1,5 @@
 <svelte:head>
-	<title>Storybook - App Template</title>
+	<title>Storybook - Stonks</title>
 </svelte:head>
 
 <article class="storybook">

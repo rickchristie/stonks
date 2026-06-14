@@ -3,8 +3,8 @@
 
 set -euo pipefail
 
-SSH_HOST="${APP_PROD_SSH_HOST:-app-template-prod-1}"
-APP_ROOT="${APP_PROD_ROOT:-/opt/app-template}"
+SSH_HOST="${APP_PROD_SSH_HOST:-stonks-prod-1}"
+APP_ROOT="${APP_PROD_ROOT:-/opt/stonks}"
 
 usage() {
 	cat <<'EOF'

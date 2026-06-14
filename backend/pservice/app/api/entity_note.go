@@ -3,7 +3,7 @@ package api
 import (
 	"time"
 
-	"app-template/data"
+	"stonks/data"
 )
 
 type Note struct {

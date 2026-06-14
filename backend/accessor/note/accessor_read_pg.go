@@ -1,10 +1,10 @@
 package note
 
 import (
-	"app-template/accessor/db"
-	"app-template/accessor/db/pg"
-	"app-template/data"
-	"app-template/lib/mend"
+	"stonks/accessor/db"
+	"stonks/accessor/db/pg"
+	"stonks/data"
+	"stonks/lib/mend"
 )
 
 var _ TransactionReader = (*pgReaderTx)(nil)

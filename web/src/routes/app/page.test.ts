@@ -39,7 +39,7 @@ describe('/app shell', () => {
 	it('hides PRD links in production', async () => {
 		await renderAppPage(false);
 
-		expect(screen.queryByRole('navigation', { name: 'Template docs' })).toBeNull();
+		expect(screen.queryByRole('navigation', { name: 'Stonks docs' })).toBeNull();
 		expect(screen.queryByRole('link', { name: 'PRD' })).toBeNull();
 		expect(screen.queryByRole('link', { name: 'Storybook' })).toBeNull();
 	});

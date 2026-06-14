@@ -2,7 +2,7 @@
 
 This directory keeps production context in the repository so agents can deploy, troubleshoot, and evolve infrastructure with the same information.
 
-The scripts are intentionally generic. Rename service names, SSH host, domain, and paths before using them for a real app.
+The scripts are Stonks placeholders until a production target exists. Set the service names, SSH host, domain, and paths before deploying real financial data.
 
 ## Architecture
 
@@ -14,9 +14,9 @@ Go backend -> PostgreSQL
 
 ## Required Customization
 
-- `APP_PROD_SSH_HOST`: production SSH host. Defaults to `app-template-prod-1`.
-- `APP_PROD_ROOT`: production app path. Defaults to `/opt/app-template`.
-- Systemd service name: defaults to `app-template-backend`.
+- `APP_PROD_SSH_HOST`: production SSH host. Defaults to `stonks-prod-1`.
+- `APP_PROD_ROOT`: production app path. Defaults to `/opt/stonks`.
+- Systemd service name: defaults to `stonks-backend`.
 - Nginx/reverse proxy config: add one before production use.
 - Secrets: keep production `.env` and database credentials on the server, not in this repo.
 
@@ -34,9 +34,9 @@ cd web/playtest && npx playwright test
 
 4. Deploy with `./scripts/release.sh`.
 5. Run `./scripts/prod-smoke.sh --expect-version X.Y.Z`.
-6. Append any server-level changes to `release/app-template-prod-1.changelog.md`.
+6. Append any server-level changes to `release/stonks-prod-1.changelog.md`.
 
-`prod-smoke.sh` scans recent journal logs for both JSON levels like `"level":"error"` and the template logger's key-value levels like `level=error logger=...`. Keep `scripts/prod-smoke-test.sh` updated when changing these failure signatures.
+`prod-smoke.sh` scans recent journal logs for both JSON levels like `"level":"error"` and the backend logger's key-value levels like `level=error logger=...`. Keep `scripts/prod-smoke-test.sh` updated when changing these failure signatures.
 
 ## Production Query Helper
 

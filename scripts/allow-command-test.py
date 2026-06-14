@@ -30,12 +30,47 @@ class AllowCommandTest(unittest.TestCase):
 		self.assertTrue(payload["allowed"])
 		self.assertEqual(payload["rule"], "dev-health")
 
+	def test_allows_background_dev_server_wrappers(self) -> None:
+		cases = [
+			("dev-backend-background", "setsid -f ./scripts/dev-backend.sh"),
+			("dev-web-background", "setsid -f ./scripts/dev-web.sh"),
+		]
+
+		for expected_rule, command in cases:
+			with self.subTest(command=command):
+				result = run_allow("--json", "--", "bash", "-lc", command)
+				self.assertEqual(result.returncode, 0, result.stderr)
+				payload = json.loads(result.stdout)
+				self.assertTrue(payload["allowed"])
+				self.assertEqual(payload["rule"], expected_rule)
+
 	def test_allows_setup_wrapper(self) -> None:
 		result = run_allow("--json", "--", "./scripts/setup.sh")
 		self.assertEqual(result.returncode, 0, result.stderr)
 		payload = json.loads(result.stdout)
 		self.assertTrue(payload["allowed"])
 		self.assertEqual(payload["rule"], "setup")
+
+	def test_allows_local_db_reset_wrapper(self) -> None:
+		result = run_allow("--json", "--", "./scripts/init-db.sh")
+		self.assertEqual(result.returncode, 0, result.stderr)
+		payload = json.loads(result.stdout)
+		self.assertTrue(payload["allowed"])
+		self.assertEqual(payload["rule"], "init-db")
+
+	def test_allows_bounded_listener_and_process_probes(self) -> None:
+		cases = [
+			("lsof-listener", "lsof -nP -iTCP:8800 -sTCP:LISTEN"),
+			("ps-dev-process-tree", "ps -o pid,ppid,pgid,cmd -p 123,4567"),
+		]
+
+		for expected_rule, command in cases:
+			with self.subTest(command=command):
+				result = run_allow("--json", "--", "bash", "-lc", command)
+				self.assertEqual(result.returncode, 0, result.stderr)
+				payload = json.loads(result.stdout)
+				self.assertTrue(payload["allowed"])
+				self.assertEqual(payload["rule"], expected_rule)
 
 	def test_allows_cd_backend_go_test(self) -> None:
 		result = run_allow("--json", "--", "bash", "-lc", "cd backend && go test ./...")
@@ -65,6 +100,12 @@ class AllowCommandTest(unittest.TestCase):
 
 	def test_denies_destructive_find(self) -> None:
 		result = run_allow("--json", "--", "find", "web/src", "-type", "f", "-delete")
+		self.assertEqual(result.returncode, 1)
+		payload = json.loads(result.stdout)
+		self.assertFalse(payload["allowed"])
+
+	def test_denies_arbitrary_kill(self) -> None:
+		result = run_allow("--json", "--", "kill", "-TERM", "-123")
 		self.assertEqual(result.returncode, 1)
 		payload = json.loads(result.stdout)
 		self.assertFalse(payload["allowed"])

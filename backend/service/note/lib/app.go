@@ -3,8 +3,8 @@ package lib
 import (
 	"context"
 
-	"app-template/data"
-	"app-template/lib/tr"
+	"stonks/data"
+	"stonks/lib/tr"
 )
 
 type AppClient interface {

@@ -1,4 +1,4 @@
-docker_name_prefix: app-template-pgflock
+docker_name_prefix: stonks-pgflock
 instance_count: 1
 starting_port: 8100
 databases_per_instance: 10

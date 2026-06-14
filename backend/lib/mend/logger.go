@@ -4,7 +4,7 @@ import (
 	"log"
 	"strconv"
 
-	"app-template/lib/tr"
+	"stonks/lib/tr"
 )
 
 type Logger interface {

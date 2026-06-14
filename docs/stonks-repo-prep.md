@@ -1,6 +1,6 @@
-# Extracted From Mark
+# Stonks Repository Prep
 
-This document records the reusable practices found in `~/Personal/mark/*` and how this template applies them. It is intentionally product-neutral; Mark-specific data, OPML content, logs, generated builds, screenshots, backups, and private deployment details were not copied.
+This document records why the repository is prepared this way before the real Stonks product work begins. Stonks is intended to help Rick research stocks, manage portfolios, and later automate trades, but those workflows should be added only when the build is explicitly started.
 
 ## Repository Shape
 
@@ -8,35 +8,35 @@ This document records the reusable practices found in `~/Personal/mark/*` and ho
 - Keep root scripts in `scripts/`; agents should not invent one-off commands when a repo-owned script can capture logging and local config.
 - Keep `release/` in the repo so infrastructure notes, migrations, changelogs, and troubleshooting context travel with the app.
 - Keep root `AGENTS.md` detailed and opinionated; it is the session-to-session memory that prevents quality drift.
-- Keep `.dev` and `.dev.example` at the repo root. Runtime differences between parallel checkouts belong in `.dev`, not in scripts. Unlike Mark, this template deliberately fails when `.dev` is missing so new apps make their local runtime explicit.
+- Keep `.dev` and `.dev.example` at the repo root. Runtime differences between parallel checkouts belong in `.dev`, not in scripts.
 - Keep a tool-neutral allow-list script so Codex, opencode, and other agents can share narrow command approval rules. Codex uses `.codex/config.toml`; OpenCode uses `opencode.json` for `/tmp` verification artifacts.
 
-## Backend Practices
+## Preserved Architecture
 
-- Use Go and PostgreSQL as the foundation.
-- Split code by responsibility:
+- Go and PostgreSQL remain the backend foundation.
+- Backend code stays split by responsibility:
   - `data`: internal DB-shaped entities and enums.
   - `accessor`: transaction-oriented storage code, SQL scanning, and domain-local database access.
   - `service`: business workflows and validation.
   - `pservice`: public HTTP API, auth, route wiring, request/response entities.
   - `lib`: reusable technical helpers.
-- Keep schema under `backend/accessor/db/pg/setup/schema/*.init.sql`, one file per domain.
-- Keep local DB reset and seed scripts under `scripts/`; schema SQL stays under `backend/accessor/db/pg/setup/schema/`.
-- Keep business rules in service code, not DB triggers or stored procedures.
-- Accessor methods return full objects, not partial structs. Partial/derived views get explicit `data/*_derived.go` files.
+- Schema belongs under `backend/accessor/db/pg/setup/schema/*.init.sql`, one file per domain.
+- Local DB reset and seed scripts stay under `scripts/`; schema SQL stays under `backend/accessor/db/pg/setup/schema/`.
+- Business rules belong in service code, not DB triggers or stored procedures.
+- Accessor methods return full objects, not partial structs. Partial or derived views get explicit `data/*_derived.go` files.
 - `Get*` accessors return an error when not found; never return `(nil, nil)`.
 - Write accessors use explicit parameters rather than accepting large data structs.
 - Service methods use `Method(ctx context.Context, in MethodIn) MethodOut`; inputs include `Trace *tr.Trace`, outputs include `Success bool`.
-- Public API entities mirror backend structs but omit sensitive/internal fields.
-- HTTP APIs use `/api/*`, POST for app actions, and a response body with an `error` field. The template starts with open endpoints; real apps should add auth before sensitive data.
+- Public API entities mirror backend structs but omit sensitive or internal fields.
+- HTTP APIs use `/api/*`, POST for app actions, and a response body with an `error` field. Add auth before introducing sensitive financial data.
 
-## Backend Testing Practices
+## Testing Practices
 
 - Include pgflock-backed database integration tests for accessors and services.
 - Each test case gets fresh database state through `pgtest.WithDb`.
 - Each domain owns `state_test.go` and `test_util.go` helpers.
 - Test helper row structs use `Idx` plus required fields and defaults for optional fields.
-- Assert database state first, service output second, and mocks/call counts third.
+- Assert database state first, service output second, and mocks or call counts third.
 - Assert complete output fields instead of partial success checks.
 - Use descriptive specs such as `"creates note with title and body"`, not `"basic"`.
 
@@ -77,17 +77,9 @@ This document records the reusable practices found in `~/Personal/mark/*` and ho
 - Keep production credentials on the server; helpers should source them remotely and not print them locally.
 - Keep changelogs under `release/` for server changes and production incidents.
 
-## Not Copied From Mark
+## Deferred Product Work
 
-- Mark product code beyond a small generic `note` example.
-- Personal OPML data, screenshots, generated builds, test artifacts, logs, backups, and local secrets.
-- Mark-specific Cloudflare R2 file flows, collaborative editor code, admin app, and private SSH host names.
-- Mark's large product-specific Codex PermissionRequest hook. The template keeps a smaller generic hook pointed at `scripts/allow-command.py`.
-
-## Future Extraction Candidates
-
-- A template command that renames module/package/product identifiers safely.
-- Optional auth module with HttpOnly cookie JWT, refresh tokens, and rate-limited login.
-- Optional admin module using the reusable filter/get API pattern.
-- Optional object storage module for signed uploads.
-- A richer project-local Codex hook safety model if generic read-only command approvals are widened.
+- Keep the example `note` domain until the first real Stonks domain has equivalent accessor, service, pservice, unit, and browser coverage.
+- Add auth before portfolio, brokerage, or trading data is persisted.
+- Treat automated trading as a later workflow with explicit risk controls, audit logs, dry-run mode, and kill-switch behavior.
+- Do not add equity data providers, brokerage integrations, or portfolio models until the build step requests them.

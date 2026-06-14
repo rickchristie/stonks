@@ -1,5 +1,5 @@
 #!/bin/bash
-# Install template dependencies after copying the repository.
+# Install Stonks dependencies for this checkout.
 #
 # This intentionally does not source .dev; dependency installation should work
 # before local ports and database names are finalized. npm still reads each

@@ -33,17 +33,17 @@
 </script>
 
 <svelte:head>
-	<title>App Template</title>
+	<title>Stonks</title>
 </svelte:head>
 
 <main class="app-shell">
 	<header class="topbar">
 		<div>
-			<p class="eyebrow">Agentic App Template</p>
-			<h1>Hello World</h1>
+			<p class="eyebrow">Repository Prep</p>
+			<h1>Stonks</h1>
 		</div>
 		{#if dev}
-			<nav aria-label="Template docs">
+			<nav aria-label="Stonks docs">
 				<a href="/prd">PRD</a>
 				<a href="/prd/storybook">Storybook</a>
 			</nav>

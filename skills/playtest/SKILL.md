@@ -144,7 +144,7 @@ Scope locators when the same text appears in navigation and content.
 
 ```typescript
 await expect(
-	page.getByLabel('PRD navigation').getByRole('link', { name: 'Hello World Template' })
+	page.getByLabel('PRD navigation').getByRole('link', { name: 'Stonks Hello World' })
 ).toBeVisible();
 ```
 
@@ -161,7 +161,7 @@ Examples:
 ```typescript
 await page.getByRole('link', { name: 'PRD' }).click();
 await page.waitForURL(/\/prd$/);
-await expect(page.getByRole('heading', { name: 'App Template' })).toBeVisible();
+await expect(page.getByRole('heading', { name: 'Stonks' })).toBeVisible();
 
 await expect(page.getByText('Saved')).toBeVisible({ timeout: 5000 });
 ```

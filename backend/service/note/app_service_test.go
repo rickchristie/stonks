@@ -3,10 +3,10 @@ package note
 import (
 	"testing"
 
-	accsNote "app-template/accessor/note"
-	"app-template/data"
-	"app-template/lib/tr"
-	svcNote "app-template/service/note/lib"
+	accsNote "stonks/accessor/note"
+	"stonks/data"
+	"stonks/lib/tr"
+	svcNote "stonks/service/note/lib"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -16,20 +16,20 @@ func TestCreateNote(t *testing.T) {
 		it("creates note after trimming title", func(t *testing.T, s *State) {
 			out := s.service.CreateNote(s.debugCtx, svcNote.CreateNoteIn{
 				Trace: &tr.Trace{TraceId: t.Name()},
-				Title: "  Template note  ",
+				Title: "  Stonks note  ",
 				Body:  "Body",
 			})
 
 			require.True(t, out.Success)
 			assert.Equal(t, svcNote.AppErrNone, out.Error)
 			require.NotNil(t, out.Note)
-			assert.Equal(t, "Template note", out.Note.Title)
+			assert.Equal(t, "Stonks note", out.Note.Title)
 			assert.Equal(t, "Body", out.Note.Body)
 			assert.Equal(t, data.NSActive, out.Note.Status)
 
 			got := s.h.GetNote(out.Note.Id)
 			assert.Equal(t, out.Note.Id, got.Id)
-			assert.Equal(t, "Template note", got.Title)
+			assert.Equal(t, "Stonks note", got.Title)
 			assert.Equal(t, "Body", got.Body)
 			assert.Equal(t, data.NSActive, got.Status)
 		})

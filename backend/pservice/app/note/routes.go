@@ -5,9 +5,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"app-template/lib/tr"
-	psApi "app-template/pservice/app/api"
-	svcNoteLib "app-template/service/note/lib"
+	"stonks/lib/tr"
+	psApi "stonks/pservice/app/api"
+	svcNoteLib "stonks/service/note/lib"
 )
 
 type Handler struct {

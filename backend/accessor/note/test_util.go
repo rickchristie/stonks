@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
-	"app-template/accessor/db"
-	"app-template/accessor/db/pg/pgtest"
-	"app-template/data"
-	"app-template/lib/tr"
+	"stonks/accessor/db"
+	"stonks/accessor/db/pg/pgtest"
+	"stonks/data"
+	"stonks/lib/tr"
 	"github.com/stretchr/testify/require"
 )
 

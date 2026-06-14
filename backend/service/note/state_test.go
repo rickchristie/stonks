@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
-	"app-template/accessor/db/pg/pgtest"
-	accsNote "app-template/accessor/note"
-	"app-template/lib/lb"
-	svcNote "app-template/service/note/lib"
+	"stonks/accessor/db/pg/pgtest"
+	accsNote "stonks/accessor/note"
+	"stonks/lib/lb"
+	svcNote "stonks/service/note/lib"
 )
 
 type State struct {

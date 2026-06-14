@@ -3,11 +3,11 @@
 
 set -euo pipefail
 
-SSH_HOST="${APP_PROD_SSH_HOST:-app-template-prod-1}"
-SERVICE_NAME="${APP_PROD_SERVICE_NAME:-app-template-backend}"
+SSH_HOST="${APP_PROD_SSH_HOST:-stonks-prod-1}"
+SERVICE_NAME="${APP_PROD_SERVICE_NAME:-stonks-backend}"
 EXPECTED_VERSION=""
 LOG_LINES=120
-# The backend may log as JSON or as the template logger's key-value text.
+# The backend may log as JSON or as key-value text.
 # Smoke should fail on either form so a production run cannot hide recent errors.
 FAILURE_LOG_PATTERN='("level"[[:space:]]*:[[:space:]]*"(error|fatal)")|(^|[[:space:]])level=(error|fatal)([[:space:]]|$)|panic|fatal|failed to|\[ERROR\]'
 

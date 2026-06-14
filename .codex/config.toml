@@ -14,4 +14,4 @@ matcher = "^Bash$"
 type = "command"
 command = '/usr/bin/python3 "$(git rev-parse --show-toplevel)/scripts/allow-command.py" --codex'
 timeout = 5
-statusMessage = "Checking app-template dev command"
+statusMessage = "Checking stonks dev command"

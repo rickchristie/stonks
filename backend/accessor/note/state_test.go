@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"app-template/accessor/db/pg/pgtest"
-	"app-template/lib/lb"
+	"stonks/accessor/db/pg/pgtest"
+	"stonks/lib/lb"
 )
 
 type State struct {

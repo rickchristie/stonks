@@ -3,8 +3,8 @@ package note
 import (
 	"testing"
 
-	"app-template/data"
-	"app-template/lib/tr"
+	"stonks/data"
+	"stonks/lib/tr"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

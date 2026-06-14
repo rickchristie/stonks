@@ -3,14 +3,14 @@
 </script>
 
 <svelte:head>
-	<title>PRD - App Template</title>
+	<title>PRD - Stonks</title>
 </svelte:head>
 
 <article class="doc">
 	<header>
 		<p>Product Requirements</p>
-		<h1>App Template</h1>
-		<span>Reusable full-stack starter for agentic development.</span>
+		<h1>Stonks</h1>
+		<span>Preparation notes for Rick's stock research, portfolio management, and automated trading app.</span>
 	</header>
 
 	{#each prdIndexGroups as group}

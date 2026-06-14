@@ -13,9 +13,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"app-template/data"
-	psApi "app-template/pservice/app/api"
-	svcNote "app-template/service/note/lib"
+	"stonks/data"
+	psApi "stonks/pservice/app/api"
+	svcNote "stonks/service/note/lib"
 )
 
 type mockNoteSvc struct {

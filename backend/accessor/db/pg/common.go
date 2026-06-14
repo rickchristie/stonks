@@ -3,8 +3,8 @@ package pg
 import (
 	"errors"
 
-	"app-template/accessor/db"
-	"app-template/lib/mend"
+	"stonks/accessor/db"
+	"stonks/lib/mend"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
 )

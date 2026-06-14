@@ -1,8 +1,8 @@
 package note
 
 import (
-	"app-template/accessor/db"
-	"app-template/data"
+	"stonks/accessor/db"
+	"stonks/data"
 )
 
 type TransactionReader interface {

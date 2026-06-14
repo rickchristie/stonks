@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"app-template/accessor/db/pg"
-	"app-template/accessor/db/pg/setup"
+	"stonks/accessor/db/pg"
+	"stonks/accessor/db/pg/setup"
 	"github.com/jackc/pgx/v5"
 	"github.com/rickchristie/govner/pgflock/client"
 )
@@ -37,7 +37,7 @@ func (db *TestDb) initialize() {
 
 	connStr, err := client.Lock(pgflockPort, db.t.Name(), pgflockPassword)
 	if err != nil {
-		if os.Getenv("APP_TEMPLATE_REQUIRE_PGFLOCK") == "1" {
+		if os.Getenv("STONKS_REQUIRE_PGFLOCK") == "1" {
 			db.t.Fatalf("pgflock lock failed: %v", err)
 		}
 		if strings.Contains(err.Error(), "connection refused") || strings.Contains(err.Error(), "connect") {

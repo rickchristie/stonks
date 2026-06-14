@@ -21,10 +21,22 @@
 			"why": "Repo-owned backend dev server wrapper."
 		},
 		{
+			"id": "dev-backend-background",
+			"kind": "prefix",
+			"argv": ["setsid", "-f", "./scripts/dev-backend.sh"],
+			"why": "Starts the repo-owned backend dev server in the documented background form."
+		},
+		{
 			"id": "dev-web",
 			"kind": "prefix",
 			"argv": ["./scripts/dev-web.sh"],
 			"why": "Repo-owned web dev server wrapper."
+		},
+		{
+			"id": "dev-web-background",
+			"kind": "prefix",
+			"argv": ["setsid", "-f", "./scripts/dev-web.sh"],
+			"why": "Starts the repo-owned web dev server in the documented background form."
 		},
 		{
 			"id": "dev-web-clean",
@@ -33,10 +45,28 @@
 			"why": "Repo-owned web dev cache reset wrapper."
 		},
 		{
+			"id": "init-db",
+			"kind": "exact",
+			"argv": ["./scripts/init-db.sh"],
+			"why": "Repo-owned local database reset and seed wrapper guarded by scripts/db-init.sh local-target checks."
+		},
+		{
 			"id": "dev-psql-target",
 			"kind": "exact",
 			"argv": ["./scripts/dev-psql.sh", "--target"],
 			"why": "Prints configured local DB target without credentials."
+		},
+		{
+			"id": "lsof-listener",
+			"kind": "regex",
+			"pattern": "^lsof -nP -iTCP:[0-9]{1,5} -sTCP:LISTEN$",
+			"why": "Bounded local listener probe for one TCP port."
+		},
+		{
+			"id": "ps-dev-process-tree",
+			"kind": "regex",
+			"pattern": "^ps -o pid,ppid,pgid,cmd -p [0-9]+(,[0-9]+)*$",
+			"why": "Bounded process inspection used before stopping known dev server process groups."
 		},
 		{
 			"id": "backend-tests",
