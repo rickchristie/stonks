@@ -1,0 +1,1356 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stonks Design Directions</title>
+  <style>
+    :root {
+      --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "SFMono-Regular", "Roboto Mono", Consolas, "Liberation Mono", monospace;
+      --page-bg: oklch(0.985 0 0);
+      --page-ink: oklch(0.170 0.012 230);
+      --page-muted: oklch(0.430 0.019 230);
+      --page-line: oklch(0.890 0.010 230);
+      --page-surface: oklch(1.000 0 0);
+      --z-sticky: 20;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--page-bg);
+      color: var(--page-ink);
+      font-family: var(--font-sans);
+      letter-spacing: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100%;
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: 264px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .rail {
+      position: sticky;
+      top: 0;
+      z-index: var(--z-sticky);
+      align-self: start;
+      display: grid;
+      gap: 28px;
+      min-height: 100vh;
+      border-right: 1px solid var(--page-line);
+      background: oklch(0.990 0 0);
+      padding: 24px;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 760;
+      line-height: 1;
+    }
+
+    .brand-mark::before {
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, transparent 38%, oklch(0.550 0.091 210) 38% 58%, transparent 58%),
+        oklch(0.170 0.012 230);
+      content: "";
+    }
+
+    .rail p {
+      max-width: 24ch;
+      margin: 0;
+      color: var(--page-muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .rail-nav {
+      display: grid;
+      gap: 8px;
+    }
+
+    .rail-nav a {
+      border: 1px solid transparent;
+      border-radius: 10px;
+      padding: 10px 11px;
+      color: var(--page-muted);
+      font-size: 13px;
+    }
+
+    .rail-nav a:hover,
+    .rail-nav a:focus-visible {
+      border-color: var(--page-line);
+      color: var(--page-ink);
+      outline: 0;
+    }
+
+    .rail-note {
+      align-self: end;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .content {
+      display: grid;
+      gap: 28px;
+      padding: 28px;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.65fr);
+      gap: 28px;
+      align-items: end;
+      border-bottom: 1px solid var(--page-line);
+      padding: 20px 0 28px;
+    }
+
+    .intro h1 {
+      max-width: 11ch;
+      margin: 0;
+      font-size: clamp(48px, 8vw, 88px);
+      font-weight: 760;
+      letter-spacing: -0.035em;
+      line-height: 0.94;
+      text-wrap: balance;
+    }
+
+    .intro p {
+      max-width: 60ch;
+      margin: 0;
+      color: var(--page-muted);
+      font-size: 16px;
+      line-height: 1.62;
+      text-wrap: pretty;
+    }
+
+    .choice-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .choice-strip span {
+      border: 1px solid var(--page-line);
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: var(--page-muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .direction {
+      --bg: oklch(1 0 0);
+      --surface: oklch(0.970 0.006 210);
+      --panel: oklch(1 0 0);
+      --ink: oklch(0.170 0.012 230);
+      --muted: oklch(0.460 0.026 225);
+      --line: oklch(0.872 0.013 225);
+      --primary: oklch(0.500 0.112 210);
+      --accent: oklch(0.650 0.130 47);
+      --good: oklch(0.540 0.130 152);
+      --bad: oklch(0.590 0.160 27);
+      display: grid;
+      gap: 16px;
+      color: var(--ink);
+    }
+
+    .direction-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: end;
+      padding-top: 20px;
+    }
+
+    .direction-header h2 {
+      max-width: 18ch;
+      margin: 0;
+      color: var(--page-ink);
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 760;
+      letter-spacing: -0.03em;
+      line-height: 0.98;
+      text-wrap: balance;
+    }
+
+    .direction-header p {
+      max-width: 70ch;
+      margin: 10px 0 0;
+      color: var(--page-muted);
+      font-size: 15px;
+      line-height: 1.55;
+      text-wrap: pretty;
+    }
+
+    .tag {
+      border: 1px solid var(--page-line);
+      border-radius: 999px;
+      padding: 9px 11px;
+      color: var(--page-muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .screen {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--bg);
+      min-height: 680px;
+    }
+
+    .screen-shell {
+      display: grid;
+      grid-template-columns: 210px minmax(0, 1fr);
+      min-height: 680px;
+    }
+
+    .app-nav {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 18px;
+      border-right: 1px solid var(--line);
+      background: var(--surface);
+      padding: 18px;
+    }
+
+    .app-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 760;
+    }
+
+    .app-logo .glyph {
+      width: 25px;
+      height: 25px;
+      border-radius: 8px;
+      background: var(--primary);
+    }
+
+    .nav-group {
+      display: grid;
+      align-content: start;
+      gap: 5px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-radius: 9px;
+      padding: 9px 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    .nav-item.active {
+      background: color-mix(in oklch, var(--primary) 14%, transparent);
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .nav-item code {
+      color: inherit;
+      font-family: var(--font-mono);
+      font-size: 10px;
+    }
+
+    .account-chip {
+      display: grid;
+      gap: 4px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .account-chip strong {
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .app-main {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-width: 0;
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--line);
+      padding: 16px 18px;
+    }
+
+    .query {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 240px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+      padding: 9px 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .query::before {
+      content: "/";
+      color: var(--primary);
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill-button {
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background: var(--primary);
+      color: oklch(0.990 0 0);
+      padding: 9px 12px;
+      font-size: 12px;
+      font-weight: 720;
+      line-height: 1;
+    }
+
+    .quiet-button {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 11px;
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(270px, 0.85fr);
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 1px solid var(--line);
+      padding: 14px;
+    }
+
+    .panel-title {
+      margin: 0;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 760;
+    }
+
+    .panel-sub {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .price-block {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 18px 14px 4px;
+    }
+
+    .price-block strong {
+      font-size: 48px;
+      font-weight: 760;
+      letter-spacing: -0.035em;
+      line-height: 1;
+    }
+
+    .move {
+      border-radius: 999px;
+      background: color-mix(in oklch, var(--good) 17%, transparent);
+      color: var(--good);
+      padding: 5px 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .chart {
+      height: 245px;
+      padding: 12px 14px 16px;
+    }
+
+    .chart svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .axis-line {
+      stroke: color-mix(in oklch, var(--line) 70%, transparent);
+      stroke-width: 1;
+    }
+
+    .chart-fill {
+      fill: color-mix(in oklch, var(--primary) 12%, transparent);
+    }
+
+    .chart-line {
+      fill: none;
+      stroke: var(--primary);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 3;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .event {
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid color-mix(in oklch, var(--line) 70%, transparent);
+      padding-bottom: 10px;
+      font-size: 12px;
+    }
+
+    .event:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .event time,
+    .event .score {
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .event strong {
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    .event span {
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .watchlist {
+      display: grid;
+      padding: 8px;
+    }
+
+    .watch-row {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr) 64px;
+      gap: 10px;
+      align-items: center;
+      border-radius: 9px;
+      padding: 9px 8px;
+      font-size: 12px;
+    }
+
+    .watch-row:hover {
+      background: color-mix(in oklch, var(--primary) 9%, transparent);
+    }
+
+    .ticker {
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-weight: 760;
+    }
+
+    .watch-row .name {
+      color: var(--muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .watch-row .gain {
+      color: var(--good);
+      font-family: var(--font-mono);
+      text-align: right;
+    }
+
+    .watch-row .loss {
+      color: var(--bad);
+      font-family: var(--font-mono);
+      text-align: right;
+    }
+
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding: 14px;
+    }
+
+    .risk-tile {
+      display: grid;
+      gap: 7px;
+      border-radius: 10px;
+      background: color-mix(in oklch, var(--surface) 64%, var(--panel));
+      padding: 12px;
+      min-height: 92px;
+    }
+
+    .risk-tile span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .risk-tile strong {
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 18px;
+    }
+
+    .research-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+      gap: 14px;
+      grid-column: 1 / -1;
+    }
+
+    .thesis {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .thesis-line {
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .thesis-line b {
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: color-mix(in oklch, var(--accent) 18%, transparent);
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 10px;
+    }
+
+    .position-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .position-table th,
+    .position-table td {
+      border-bottom: 1px solid color-mix(in oklch, var(--line) 78%, transparent);
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    .position-table th {
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 650;
+    }
+
+    .position-table td {
+      color: var(--ink);
+    }
+
+    .position-table td:last-child,
+    .position-table th:last-child {
+      text-align: right;
+    }
+
+    .currency,
+    .pct {
+      font-family: var(--font-mono);
+    }
+
+    .direction-a {
+      --bg: oklch(1.000 0 0);
+      --surface: oklch(0.968 0.008 210);
+      --panel: oklch(0.996 0 0);
+      --ink: oklch(0.165 0.018 230);
+      --muted: oklch(0.430 0.030 225);
+      --line: oklch(0.875 0.014 220);
+      --primary: oklch(0.510 0.105 209);
+      --accent: oklch(0.690 0.120 63);
+      --good: oklch(0.520 0.130 154);
+      --bad: oklch(0.560 0.160 27);
+    }
+
+    .direction-a .screen {
+      box-shadow: 0 8px 8px color-mix(in oklch, var(--primary) 8%, transparent);
+    }
+
+    .direction-a .app-logo .glyph {
+      background:
+        linear-gradient(135deg, transparent 42%, var(--accent) 42% 58%, transparent 58%),
+        var(--primary);
+    }
+
+    .direction-b {
+      --bg: oklch(0.085 0 0);
+      --surface: oklch(0.130 0.006 235);
+      --panel: oklch(0.108 0.004 235);
+      --ink: oklch(0.940 0.006 230);
+      --muted: oklch(0.690 0.022 230);
+      --line: oklch(0.255 0.012 230);
+      --primary: oklch(0.670 0.115 205);
+      --accent: oklch(0.690 0.160 355);
+      --good: oklch(0.700 0.145 154);
+      --bad: oklch(0.700 0.165 28);
+    }
+
+    .direction-b .screen {
+      border-color: oklch(0.300 0.020 230);
+      box-shadow: inset 0 0 0 1px oklch(0.170 0.006 235);
+    }
+
+    .direction-b .app-logo .glyph {
+      background:
+        radial-gradient(circle at 34% 34%, var(--accent) 0 4px, transparent 5px),
+        var(--primary);
+    }
+
+    .direction-b .chart-fill {
+      fill: color-mix(in oklch, var(--primary) 18%, transparent);
+    }
+
+    .direction-c {
+      --bg: oklch(0.958 0.024 208);
+      --surface: oklch(0.910 0.036 208);
+      --panel: oklch(0.986 0.006 208);
+      --ink: oklch(0.170 0.020 230);
+      --muted: oklch(0.390 0.034 224);
+      --line: oklch(0.800 0.030 208);
+      --primary: oklch(0.445 0.122 210);
+      --accent: oklch(0.625 0.170 20);
+      --good: oklch(0.475 0.125 150);
+      --bad: oklch(0.560 0.170 24);
+    }
+
+    .direction-c .screen {
+      background:
+        radial-gradient(circle at 20% 0%, color-mix(in oklch, var(--primary) 13%, transparent), transparent 34%),
+        var(--bg);
+    }
+
+    .direction-c .app-logo .glyph {
+      background:
+        conic-gradient(from 180deg, var(--primary), var(--accent), var(--primary));
+    }
+
+    .direction-d {
+      --bg: oklch(0.165 0.050 207);
+      --surface: oklch(0.215 0.060 207);
+      --panel: oklch(0.945 0.012 210);
+      --ink: oklch(0.145 0.018 225);
+      --muted: oklch(0.410 0.035 220);
+      --line: oklch(0.785 0.025 210);
+      --primary: oklch(0.485 0.116 211);
+      --accent: oklch(0.780 0.155 136);
+      --good: oklch(0.520 0.140 152);
+      --bad: oklch(0.580 0.170 27);
+    }
+
+    .direction-d .screen {
+      background: var(--bg);
+    }
+
+    .direction-d .screen-shell {
+      grid-template-columns: 230px minmax(0, 1fr);
+    }
+
+    .direction-d .app-nav,
+    .direction-d .topline {
+      color: oklch(0.930 0.010 210);
+    }
+
+    .direction-d .app-nav {
+      border-right-color: oklch(0.330 0.055 207);
+      background: var(--surface);
+    }
+
+    .direction-d .app-logo,
+    .direction-d .account-chip strong {
+      color: oklch(0.970 0.006 210);
+    }
+
+    .direction-d .nav-item,
+    .direction-d .account-chip,
+    .direction-d .query {
+      color: oklch(0.760 0.030 210);
+    }
+
+    .direction-d .nav-item.active {
+      background: oklch(0.305 0.070 207);
+      color: oklch(0.980 0.004 210);
+    }
+
+    .direction-d .topline {
+      border-bottom-color: oklch(0.330 0.055 207);
+      background: oklch(0.190 0.050 207);
+    }
+
+    .direction-d .query {
+      border-color: oklch(0.350 0.050 207);
+      background: oklch(0.145 0.045 207);
+    }
+
+    .direction-d .workspace-grid {
+      background: oklch(0.165 0.050 207);
+    }
+
+    .direction-d .panel {
+      color: var(--ink);
+    }
+
+    .portfolio-strip {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr 0.9fr;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .portfolio-tile {
+      display: grid;
+      gap: 8px;
+      border-radius: 11px;
+      background: color-mix(in oklch, var(--primary) 10%, var(--panel));
+      padding: 14px;
+    }
+
+    .portfolio-tile span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .portfolio-tile strong {
+      color: var(--ink);
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .portfolio-tile code {
+      color: var(--primary);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .heatmap {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 5px;
+      padding: 14px;
+    }
+
+    .heat {
+      display: grid;
+      place-items: center;
+      min-height: 42px;
+      border-radius: 7px;
+      color: oklch(0.990 0 0);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 720;
+    }
+
+    .heat.good {
+      background: var(--good);
+    }
+
+    .heat.flat {
+      background: var(--primary);
+    }
+
+    .heat.bad {
+      background: var(--bad);
+    }
+
+    .automation {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .rule-row {
+      display: grid;
+      grid-template-columns: 20px minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      border-bottom: 1px solid color-mix(in oklch, var(--line) 70%, transparent);
+      padding-bottom: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .rule-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .rule-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--primary);
+    }
+
+    .rule-row strong {
+      color: var(--ink);
+    }
+
+    .rule-row code {
+      color: var(--primary);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    @media (max-width: 1060px) {
+      .board {
+        grid-template-columns: 1fr;
+      }
+
+      .rail {
+        position: static;
+        min-height: 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--page-line);
+      }
+
+      .screen-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .app-nav {
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: auto;
+        align-items: center;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav-group {
+        display: flex;
+        overflow-x: auto;
+      }
+
+      .account-chip {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .direction-d .screen-shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .content {
+        padding: 18px;
+      }
+
+      .intro,
+      .direction-header,
+      .workspace-grid,
+      .research-grid,
+      .portfolio-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .intro h1 {
+        font-size: clamp(42px, 15vw, 64px);
+      }
+
+      .direction-header h2 {
+        font-size: 34px;
+      }
+
+      .screen,
+      .screen-shell {
+        min-height: 0;
+      }
+
+      .app-nav {
+        grid-template-columns: 1fr;
+      }
+
+      .topline {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .query {
+        min-width: 0;
+      }
+
+      .price-block strong {
+        font-size: 38px;
+      }
+
+      .risk-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .heatmap {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .event {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="board">
+    <aside class="rail" aria-label="Design direction navigation">
+      <div>
+        <div class="brand-mark">Stonks</div>
+        <p style="margin-top: 16px;">Four non-final directions for a serious stock research and portfolio tool.</p>
+      </div>
+      <nav class="rail-nav" aria-label="Directions">
+        <a href="#direction-a">A. Instrument Panel</a>
+        <a href="#direction-b">B. Signal Room</a>
+        <a href="#direction-c">C. Research Atlas</a>
+        <a href="#direction-d">D. Command Deck</a>
+      </nav>
+      <div class="rail-note">Init artifact. Not investment data. Pick, reject, or combine.</div>
+    </aside>
+
+    <main class="content">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <h1 id="page-title">Choose the shape of Stonks.</h1>
+          <div class="choice-strip" aria-label="Decision prompts">
+            <span>research depth</span>
+            <span>portfolio clarity</span>
+            <span>future automation</span>
+            <span>sans + mono</span>
+          </div>
+        </div>
+        <p>
+          These screens are built to test direction, not to lock the product. Each one shows the same Stonks job from a different angle: scan the market, understand a position, capture a thesis, and prepare disciplined actions.
+        </p>
+      </section>
+
+      <section id="direction-a" class="direction direction-a" aria-labelledby="direction-a-title">
+        <header class="direction-header">
+          <div>
+            <h2 id="direction-a-title">A. Instrument Panel</h2>
+            <p>Physical scene: a quiet morning desk before market open, bright room, one large display, calm decisions before volume arrives. Restrained white surface, blue-steel primary, brass accent, compact analytical density.</p>
+          </div>
+          <span class="tag">precise / calm / premium</span>
+        </header>
+        <div class="screen">
+          <div class="screen-shell">
+            <aside class="app-nav" aria-label="Instrument Panel nav">
+              <div class="app-logo"><span class="glyph"></span><span>Stonks</span></div>
+              <div class="nav-group">
+                <div class="nav-item active"><span>Research</span><code>R</code></div>
+                <div class="nav-item"><span>Portfolio</span><code>P</code></div>
+                <div class="nav-item"><span>Watchlists</span><code>W</code></div>
+                <div class="nav-item"><span>Rules</span><code>A</code></div>
+                <div class="nav-item"><span>Journal</span><code>J</code></div>
+              </div>
+              <div class="account-chip"><span>Portfolio value</span><strong>$428,940</strong><span>Cash 8.4%</span></div>
+            </aside>
+            <section class="app-main">
+              <div class="topline">
+                <div class="query">Search ticker, filing, thesis, or rule</div>
+                <div class="action-row"><button class="quiet-button">Compare</button><button class="pill-button">Add thesis</button></div>
+              </div>
+              <div class="workspace-grid">
+                <article class="panel">
+                  <div class="panel-header">
+                    <div><h3 class="panel-title">NVDA research board</h3><p class="panel-sub">AI accelerators / earnings in 19d</p></div>
+                    <span class="move">+2.8%</span>
+                  </div>
+                  <div class="price-block"><strong>184.32</strong><span class="move">+5.02</span></div>
+                  <div class="chart">
+                    <svg viewBox="0 0 640 260" role="img" aria-label="Mock price chart">
+                      <path class="axis-line" d="M0 218H640M0 160H640M0 102H640M0 44H640" />
+                      <path class="chart-fill" d="M0 222C38 212 54 178 96 182C142 188 154 140 198 142C242 144 260 93 304 104C350 116 366 72 410 78C460 86 480 45 528 54C574 63 590 34 640 30V260H0Z" />
+                      <path class="chart-line" d="M0 222C38 212 54 178 96 182C142 188 154 140 198 142C242 144 260 93 304 104C350 116 366 72 410 78C460 86 480 45 528 54C574 63 590 34 640 30" />
+                    </svg>
+                  </div>
+                </article>
+                <article class="panel">
+                  <div class="panel-header"><div><h3 class="panel-title">Watchlist pulse</h3><p class="panel-sub">Ranked by thesis drift</p></div></div>
+                  <div class="watchlist">
+                    <div class="watch-row"><span class="ticker">ASML</span><span class="name">Lithography backlog</span><span class="gain">+1.4%</span></div>
+                    <div class="watch-row"><span class="ticker">MSFT</span><span class="name">Cloud margin expansion</span><span class="gain">+0.8%</span></div>
+                    <div class="watch-row"><span class="ticker">TSM</span><span class="name">Capex guidance</span><span class="loss">-0.5%</span></div>
+                    <div class="watch-row"><span class="ticker">COST</span><span class="name">Membership pricing</span><span class="gain">+0.2%</span></div>
+                    <div class="watch-row"><span class="ticker">V</span><span class="name">Consumer spend quality</span><span class="loss">-0.3%</span></div>
+                  </div>
+                </article>
+                <article class="panel">
+                  <div class="panel-header"><div><h3 class="panel-title">Catalyst timeline</h3><p class="panel-sub">Research events and check-ins</p></div></div>
+                  <div class="timeline">
+                    <div class="event"><time>08:30</time><div><strong>CPI print</strong><br><span>Watch rate-sensitive multiple compression.</span></div><span class="score">macro</span></div>
+                    <div class="event"><time>Thu</time><div><strong>NVDA call prep</strong><br><span>Validate export-control sensitivity.</span></div><span class="score">high</span></div>
+                    <div class="event"><time>Jun 27</time><div><strong>Rebalance window</strong><br><span>Trim if allocation exceeds rule.</span></div><span class="score">rule</span></div>
+                  </div>
+                </article>
+                <article class="panel">
+                  <div class="panel-header"><div><h3 class="panel-title">Risk shape</h3><p class="panel-sub">Concentration and drawdown</p></div></div>
+                  <div class="risk-grid">
+                    <div class="risk-tile"><span>Single name</span><strong>14.2%</strong><span>limit 16%</span></div>
+                    <div class="risk-tile"><span>Sector beta</span><strong>1.18</strong><span>tech-heavy</span></div>
+                    <div class="risk-tile"><span>Dry run</span><strong>on</strong><span>no live trades</span></div>
+                  </div>
+                </article>
+                <article class="panel research-grid">
+                  <div class="thesis">
+                    <div class="thesis-line"><b>1</b><span>Revenue mix is becoming less cyclical as software attachment rises.</span></div>
+                    <div class="thesis-line"><b>2</b><span>Main risk is export controls hitting forward supply commitments.</span></div>
+                    <div class="thesis-line"><b>3</b><span>Action threshold: add only if forward P/E falls below internal band.</span></div>
+                  </div>
+                  <table class="position-table">
+                    <thead><tr><th>Holding</th><th>Weight</th><th>Cost</th><th>Day</th></tr></thead>
+                    <tbody>
+                      <tr><td>NVDA</td><td class="pct">14.2%</td><td class="currency">$138.40</td><td class="pct">+2.8%</td></tr>
+                      <tr><td>MSFT</td><td class="pct">11.8%</td><td class="currency">$392.12</td><td class="pct">+0.8%</td></tr>
+                      <tr><td>ASML</td><td class="pct">8.1%</td><td class="currency">$713.20</td><td class="pct">+1.4%</td></tr>
+                    </tbody>
+                  </table>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section id="direction-b" class="direction direction-b" aria-labelledby="direction-b-title">
+        <header class="direction-header">
+          <div>
+            <h2 id="direction-b-title">B. Signal Room</h2>
+            <p>Physical scene: late afternoon risk review in a dim room, alerts visible but not screaming, emphasis on confidence and control. Near-black neutral base, luminous blue primary, coral signal accent, sharper contrast.</p>
+          </div>
+          <span class="tag">focused / cinematic / controlled</span>
+        </header>
+        <div class="screen">
+          <div class="screen-shell">
+            <aside class="app-nav" aria-label="Signal Room nav">
+              <div class="app-logo"><span class="glyph"></span><span>Stonks</span></div>
+              <div class="nav-group">
+                <div class="nav-item active"><span>Signals</span><code>S</code></div>
+                <div class="nav-item"><span>Portfolio</span><code>P</code></div>
+                <div class="nav-item"><span>Research</span><code>R</code></div>
+                <div class="nav-item"><span>Automation</span><code>A</code></div>
+                <div class="nav-item"><span>Audit</span><code>U</code></div>
+              </div>
+              <div class="account-chip"><span>Exposure</span><strong>72.6%</strong><span>Dry-run rules armed</span></div>
+            </aside>
+            <section class="app-main">
+              <div class="topline">
+                <div class="query">Command, ticker, alert, or saved screen</div>
+                <div class="action-row"><button class="quiet-button">Mute low risk</button><button class="pill-button">Review signal</button></div>
+              </div>
+              <div class="workspace-grid">
+                <article class="panel">
+                  <div class="panel-header">
+                    <div><h3 class="panel-title">QQQ regime monitor</h3><p class="panel-sub">Momentum + breadth + drawdown</p></div>
+                    <span class="move">risk on</span>
+                  </div>
+                  <div class="price-block"><strong>531.08</strong><span class="move">+1.1%</span></div>
+                  <div class="chart">
+                    <svg viewBox="0 0 640 260" role="img" aria-label="Mock signal chart">
+                      <path class="axis-line" d="M0 220H640M0 170H640M0 120H640M0 70H640" />
+                      <path class="chart-fill" d="M0 190C46 182 58 122 102 132C144 142 164 196 206 168C246 142 260 95 310 112C354 127 372 72 414 84C468 99 478 38 522 50C570 63 588 108 640 72V260H0Z" />
+                      <path class="chart-line" d="M0 190C46 182 58 122 102 132C144 142 164 196 206 168C246 142 260 95 310 112C354 127 372 72 414 84C468 99 478 38 522 50C570 63 588 108 640 72" />
+                    </svg>
+                  </div>
+                </article>
+                <article class="panel">
+                  <div class="panel-header"><div><h3 class="panel-title">Live anomalies</h3><p class="panel-sub">Only high-confidence triggers</p></div></div>
+                  <div class="timeline">
+                    <div class="event"><time>15:42</time><div><strong>SMH volume break</strong><br><span>2.2x baseline with breadth support.</span></div><span class="score">92</span></div>
+                    <div class="event"><time>14:18</time><div><strong>VIX spread shift</strong><br><span>Watch risk compression into close.</span></div><span class="score">77</span></div>
+                    <div class="event"><time>13:04</time><div><strong>USDJPY impulse</strong><br><span>Macro note added to semis watch.</span></div><span class="score">61</span></div>
+                  </div>
+                </article>
+                <article class="panel">
+                  <div class="panel-header"><div><h3 class="panel-title">Automation guardrails</h3><p class="panel-sub">Future live-trading vocabulary</p></div></div>
+                  <div class="automation">
+                    <div class="rule-row"><span class="rule-dot"></span><span><strong>Never execute</strong> while thesis confidence is below 70.</span><code>locked</code></div>
+                    <div class="rule-row"><span class="rule-dot"></span><span><strong>Dry-run first</strong> for seven sessions before live route.</span><code>armed</code></div>
+                    <div class="rule-row"><span class="rule-dot"></span><span><strong>Kill switch</strong> visible on every automation screen.</span><code>global</code></div>
+                  </div>
+                </article>
+                <article class="panel">
+                  <div class="panel-header"><div><h3 class="panel-title">Watchlist pulse</h3><p class="panel-sub">Close pressure</p></div></div>
+                  <div class="watchlist">
+                    <div class="watch-row"><span class="ticker">SMH</span><span class="name">Semiconductor ETF</span><span class="gain">+1.9%</span></div>
+                    <div class="watch-row"><span class="ticker">AMD</span><span class="name">Data center mix</span><span class="gain">+1.1%</span></div>
+                    <div class="watch-row"><span class="ticker">META</span><span class="name">Ad load check</span><span class="loss">-0.4%</span></div>
+                    <div class="watch-row"><span class="ticker">GOOGL</span><span class="name">Search share</span><span class="gain">+0.6%</span></div>
+                  </div>
+                </article>
+                <article class="panel research-grid">
+                  <div class="heatmap">
+                    <span class="heat good">AI</span><span class="heat good">Semi</span><span class="heat flat">Cloud</span><span class="heat bad">REIT</span>
+                    <span class="heat flat">Fin</span><span class="heat good">Med</span><span class="heat bad">Util</span><span class="heat flat">Cash</span>
+                    <span class="heat good">Mom</span><span class="heat flat">Qual</span><span class="heat bad">Yield</span><span class="heat good">Growth</span>
+                    <span class="heat bad">Oil</span><span class="heat flat">FX</span><span class="heat good">Gold</span><span class="heat flat">SPX</span>
+                  </div>
+                  <table class="position-table">
+                    <thead><tr><th>Signal</th><th>Level</th><th>State</th><th>Action</th></tr></thead>
+                    <tbody>
+                      <tr><td>Momentum</td><td class="pct">82</td><td>confirmed</td><td>hold</td></tr>
+                      <tr><td>Breadth</td><td class="pct">67</td><td>mixed</td><td>watch</td></tr>
+                      <tr><td>Drawdown</td><td class="pct">low</td><td>inside band</td><td>none</td></tr>
+                    </tbody>
+                  </table>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section id="direction-c" class="direction direction-c" aria-labelledby="direction-c-title">
+        <header class="direction-header">
+          <div>
+            <h2 id="direction-c-title">C. Research Atlas</h2>
+            <p>Physical scene: weekend deep-dive with research notes, filings, scenarios, and portfolio map open side-by-side. Tinted blue environment, crisp white work surfaces, coral decisions, more spatial and exploratory.</p>
+          </div>
+          <span class="tag">exploratory / visual / editorial</span>
+        </header>
+        <div class="screen">
+          <div class="screen-shell">
+            <aside class="app-nav" aria-label="Research Atlas nav">
+              <div class="app-logo"><span class="glyph"></span><span>Stonks</span></div>
+              <div class="nav-group">
+                <div class="nav-item active"><span>Atlas</span><code>M</code></div>
+                <div class="nav-item"><span>Company</span><code>C</code></div>
+                <div class="nav-item"><span>Filings</span><code>F</code></div>
+                <div class="nav-item"><span>Scenarios</span><code>S</code></div>
+                <div class="nav-item"><span>Journal</span><code>J</code></div>
+              </div>
+              <div class="account-chip"><span>Coverage</span><strong>42 names</strong><span>9 active theses</span></div>
+            </aside>
+            <section class="app-main">
+              <div class="topline">
+                <div class="query">Map a sector, thesis, supplier, or risk</div>
+                <div class="action-row"><button class="quiet-button">Open filing</button><button class="pill-button">Map thesis</button></div>
+              </div>
+              <div class="workspace-grid">
+                <article class="panel">
+                  <div class="panel-header">
+                    <div><h3 class="panel-title">Semiconductor supply map</h3><p class="panel-sub">Linking holdings, suppliers, catalysts</p></div>
+                    <span class="move">updated</span>
+                  </div>
+                  <div class="chart">
+                    <svg viewBox="0 0 640 260" role="img" aria-label="Mock research map">
+                      <path class="axis-line" d="M90 132H550M318 34V222M155 72L500 202M145 210L510 62" />
+                      <circle cx="318" cy="132" r="46" fill="var(--primary)" />
+                      <circle cx="158" cy="72" r="34" fill="var(--accent)" />
+                      <circle cx="505" cy="62" r="28" fill="var(--good)" />
+                      <circle cx="502" cy="202" r="36" fill="var(--primary)" opacity="0.78" />
+                      <circle cx="145" cy="210" r="26" fill="var(--bad)" />
+                      <text x="318" y="137" fill="white" text-anchor="middle" font-family="monospace" font-size="16" font-weight="700">NVDA</text>
+                      <text x="158" y="77" fill="white" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700">ASML</text>
+                      <text x="505" y="67" fill="white" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700">TSM</text>
+                      <text x="502" y="207" fill="white" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700">MSFT</text>
+                      <text x="145" y="215" fill="white" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700">RISK</text>
+                    </svg>
+                  </div>
+                </article>
+                <article class="panel">
+                  <div class="panel-header"><div><h3 class="panel-title">Reading queue</h3><p class="panel-sub">Filings and notes grouped by thesis</p></div></div>
+                  <div class="timeline">
+                    <div class="event"><time>10-K</time><div><strong>Revenue recognition</strong><br><span>Flag contract duration assumptions.</span></div><span class="score">read</span></div>
+                    <div class="event"><time>Call</time><div><strong>Gross margin answer</strong><br><span>Compare to cost model.</span></div><span class="score">clip</span></div>
+                    <div class="event"><time>News</time><div><strong>Export license note</strong><br><span>Attach to risk branch.</span></div><span class="score">risk</span></div>
+                  </div>
+                </article>
+                <article class="panel">
+                  <div class="panel-header"><div><h3 class="panel-title">Scenario bands</h3><p class="panel-sub">Base, bear, stretch</p></div></div>
+                  <div class="risk-grid">
+                    <div class="risk-tile"><span>Bear</span><strong>142</strong><span>margin reset</span></div>
+                    <div class="risk-tile"><span>Base</span><strong>188</strong><span>steady demand</span></div>
+                    <div class="risk-tile"><span>Stretch</span><strong>224</strong><span>software attach</span></div>
+                  </div>
+                </article>
+                <article class="panel">
+                  <div class="panel-header"><div><h3 class="panel-title">Watchlist pulse</h3><p class="panel-sub">Theme adjacency</p></div></div>
+                  <div class="watchlist">
+                    <div class="watch-row"><span class="ticker">SNOW</span><span class="name">Consumption recovery</span><span class="gain">+1.0%</span></div>
+                    <div class="watch-row"><span class="ticker">ORCL</span><span class="name">Capacity backlog</span><span class="gain">+0.7%</span></div>
+                    <div class="watch-row"><span class="ticker">ARM</span><span class="name">Licensing leverage</span><span class="loss">-0.6%</span></div>
+                    <div class="watch-row"><span class="ticker">AVGO</span><span class="name">Custom silicon</span><span class="gain">+0.9%</span></div>
+                  </div>
+                </article>
+                <article class="panel research-grid">
+                  <div class="thesis">
+                    <div class="thesis-line"><b>A</b><span>Best for a research-heavy product where notes, evidence, and dependencies matter as much as price.</span></div>
+                    <div class="thesis-line"><b>B</b><span>Gives Stonks more visual identity without making the daily task feel decorative.</span></div>
+                    <div class="thesis-line"><b>C</b><span>May need tighter density if you want this to feel more like a trading cockpit.</span></div>
+                  </div>
+                  <table class="position-table">
+                    <thead><tr><th>Evidence</th><th>Source</th><th>Impact</th><th>Status</th></tr></thead>
+                    <tbody>
+                      <tr><td>Margin guide</td><td>Call</td><td>high</td><td>verified</td></tr>
+                      <tr><td>Supplier delay</td><td>News</td><td>medium</td><td>watch</td></tr>
+                      <tr><td>Capex model</td><td>Sheet</td><td>high</td><td>stale</td></tr>
+                    </tbody>
+                  </table>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section id="direction-d" class="direction direction-d" aria-labelledby="direction-d-title">
+        <header class="direction-header">
+          <div>
+            <h2 id="direction-d-title">D. Command Deck</h2>
+            <p>Physical scene: active portfolio supervision during market hours, dark side shell around bright work panels, every action auditable. Committed blue architecture, bright panels for readability, green accent reserved for safe state.</p>
+          </div>
+          <span class="tag">operator / disciplined / distinctive</span>
+        </header>
+        <div class="screen">
+          <div class="screen-shell">
+            <aside class="app-nav" aria-label="Command Deck nav">
+              <div class="app-logo"><span class="glyph"></span><span>Stonks</span></div>
+              <div class="nav-group">
+                <div class="nav-item active"><span>Deck</span><code>D</code></div>
+                <div class="nav-item"><span>Positions</span><code>P</code></div>
+                <div class="nav-item"><span>Rules</span><code>R</code></div>
+                <div class="nav-item"><span>Audit</span><code>U</code></div>
+                <div class="nav-item"><span>Settings</span><code>,</code></div>
+              </div>
+              <div class="account-chip"><span>Automation</span><strong>Dry-run only</strong><span>Kill switch available</span></div>
+            </aside>
+            <section class="app-main">
+              <div class="topline">
+                <div class="query">Find position, rule, broker event, or audit log</div>
+                <div class="action-row"><button class="quiet-button">Run check</button><button class="pill-button">Create rule</button></div>
+              </div>
+              <div class="workspace-grid">
+                <article class="panel research-grid">
+                  <div class="portfolio-strip">
+                    <div class="portfolio-tile"><span>Total equity</span><strong>$428,940</strong><code>+8.7% YTD</code></div>
+                    <div class="portfolio-tile"><span>Max drawdown</span><strong>-6.2%</strong><code>inside band</code></div>
+                    <div class="portfolio-tile"><span>Rule health</span><strong>98%</strong><code>2 warnings</code></div>
+                  </div>
+                  <div class="heatmap">
+                    <span class="heat good">NVDA</span><span class="heat good">MSFT</span><span class="heat flat">ASML</span><span class="heat bad">TSM</span>
+                    <span class="heat flat">V</span><span class="heat good">COST</span><span class="heat bad">META</span><span class="heat flat">SPY</span>
+                    <span class="heat good">QQQ</span><span class="heat flat">BRK</span><span class="heat bad">DIS</span><span class="heat good">LLY</span>
+                    <span class="heat bad">XLE</span><span class="heat flat">CASH</span><span class="heat good">GLD</span><span class="heat flat">BND</span>
+                  </div>
+                </article>
+                <article class="panel">
+                  <div class="panel-header"><div><h3 class="panel-title">Execution preview</h3><p class="panel-sub">Dry-run only</p></div><span class="move">safe</span></div>
+                  <div class="automation">
+                    <div class="rule-row"><span class="rule-dot"></span><span><strong>Trim NVDA</strong> if weight exceeds 16% after close.</span><code>queued</code></div>
+                    <div class="rule-row"><span class="rule-dot"></span><span><strong>Block buy</strong> if drawdown alert is active.</span><code>global</code></div>
+                    <div class="rule-row"><span class="rule-dot"></span><span><strong>Notify only</strong> when earnings window is under 48h.</span><code>on</code></div>
+                  </div>
+                </article>
+                <article class="panel">
+                  <div class="panel-header"><div><h3 class="panel-title">Positions</h3><p class="panel-sub">Sorted by risk contribution</p></div></div>
+                  <table class="position-table">
+                    <thead><tr><th>Holding</th><th>Weight</th><th>Risk</th><th>Action</th></tr></thead>
+                    <tbody>
+                      <tr><td>NVDA</td><td class="pct">14.2%</td><td>high</td><td>watch</td></tr>
+                      <tr><td>MSFT</td><td class="pct">11.8%</td><td>med</td><td>hold</td></tr>
+                      <tr><td>ASML</td><td class="pct">8.1%</td><td>med</td><td>hold</td></tr>
+                      <tr><td>CASH</td><td class="pct">8.4%</td><td>low</td><td>ready</td></tr>
+                    </tbody>
+                  </table>
+                </article>
+                <article class="panel">
+                  <div class="panel-header"><div><h3 class="panel-title">Audit trail</h3><p class="panel-sub">Explain every future action</p></div></div>
+                  <div class="timeline">
+                    <div class="event"><time>15:58</time><div><strong>Rule evaluated</strong><br><span>NVDA concentration check passed.</span></div><span class="score">ok</span></div>
+                    <div class="event"><time>15:30</time><div><strong>Broker sync</strong><br><span>Positions matched portfolio state.</span></div><span class="score">ok</span></div>
+                    <div class="event"><time>09:34</time><div><strong>Trade blocked</strong><br><span>Earnings blackout rule prevented add.</span></div><span class="score">safe</span></div>
+                  </div>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -26,6 +26,8 @@
 
 This repository is for Stonks, Rick's app for researching stocks, managing portfolios, and later automating trades.
 
+Product and design context live in `PRODUCT.md` and `DESIGN.md`. Treat the current app UI as template scaffolding until replaced by the documented Stonks design direction.
+
 ## Documentation
 
 - Keep root docs concise, terse, and complete.

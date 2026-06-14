@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-14T20:22:01+07:00",
+  "title": "Design System: Stonks",
+  "extensions": {
+    "colorMeta": {
+      "steel-blue": {
+        "role": "primary",
+        "displayName": "Blue-Steel Instrument",
+        "canonical": "oklch(0.510 0.105 209)",
+        "tonalRamp": [
+          "oklch(0.150 0.105 209)",
+          "oklch(0.250 0.105 209)",
+          "oklch(0.350 0.105 209)",
+          "oklch(0.450 0.105 209)",
+          "oklch(0.550 0.105 209)",
+          "oklch(0.680 0.105 209)",
+          "oklch(0.820 0.105 209)",
+          "oklch(0.950 0.105 209)"
+        ]
+      },
+      "signal-cyan": {
+        "role": "secondary",
+        "displayName": "Signal Cyan",
+        "canonical": "oklch(0.690 0.145 205)",
+        "tonalRamp": [
+          "oklch(0.150 0.145 205)",
+          "oklch(0.250 0.145 205)",
+          "oklch(0.350 0.145 205)",
+          "oklch(0.450 0.145 205)",
+          "oklch(0.550 0.145 205)",
+          "oklch(0.690 0.145 205)",
+          "oklch(0.820 0.145 205)",
+          "oklch(0.950 0.145 205)"
+        ]
+      },
+      "gain-pop": {
+        "role": "semantic",
+        "displayName": "Gain Pop",
+        "canonical": "oklch(0.540 0.170 151)",
+        "tonalRamp": [
+          "oklch(0.150 0.170 151)",
+          "oklch(0.230 0.170 151)",
+          "oklch(0.320 0.170 151)",
+          "oklch(0.410 0.170 151)",
+          "oklch(0.540 0.170 151)",
+          "oklch(0.650 0.170 151)",
+          "oklch(0.790 0.170 151)",
+          "oklch(0.930 0.170 151)"
+        ]
+      },
+      "loss-pop": {
+        "role": "semantic",
+        "displayName": "Loss Pop",
+        "canonical": "oklch(0.590 0.215 28)",
+        "tonalRamp": [
+          "oklch(0.150 0.215 28)",
+          "oklch(0.240 0.215 28)",
+          "oklch(0.330 0.215 28)",
+          "oklch(0.440 0.215 28)",
+          "oklch(0.590 0.215 28)",
+          "oklch(0.700 0.215 28)",
+          "oklch(0.830 0.215 28)",
+          "oklch(0.950 0.215 28)"
+        ]
+      },
+      "signal-black": {
+        "role": "neutral",
+        "displayName": "Signal Black",
+        "canonical": "oklch(0.085 0.000 0)",
+        "tonalRamp": [
+          "oklch(0.080 0.000 0)",
+          "oklch(0.150 0.000 0)",
+          "oklch(0.250 0.000 0)",
+          "oklch(0.350 0.000 0)",
+          "oklch(0.500 0.000 0)",
+          "oklch(0.650 0.000 0)",
+          "oklch(0.800 0.000 0)",
+          "oklch(0.950 0.000 0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Heavy Grotesque Display",
+        "purpose": "Hero-scale setup screens, empty states, and major product moments only."
+      },
+      "mono": {
+        "displayName": "Ticker Mono",
+        "purpose": "Tickers, percentages, shortcuts, rule syntax, analyst scores, and compact metadata."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shell-lift",
+        "value": "0 8px 8px color-mix(in oklch, var(--steel-blue) 8%, transparent)",
+        "purpose": "One main app shell, modal, or important floating surface."
+      },
+      {
+        "name": "interactive-lift",
+        "value": "0 4px 8px color-mix(in oklch, var(--ink) 8%, transparent)",
+        "purpose": "Temporary hover or drag state only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-quick",
+        "value": "150ms cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Buttons, nav selection, chip toggles, and focus transitions."
+      },
+      {
+        "name": "ticker-change",
+        "value": "220ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Percentage and ticker value changes. Use a static update under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact",
+        "value": "760px"
+      },
+      {
+        "name": "shell-collapse",
+        "value": "1060px"
+      }
+    ],
+    "narrative": {
+      "northStar": "The Signal Instrument",
+      "overview": "Stonks is an A+B hybrid from the init directions: the bright precision of Instrument Panel plus the focused energy of Signal Room. The default workspace is light, exact, readable, and calm enough for deep research. Signal-heavy areas such as alerts, analyst scanning, and future automation can shift into a dark surface where glowing cyan, gain green, and loss red feel alive.\n\nThe system should not look like a brokerage clone or a generic admin dashboard. It should be beautiful enough to keep open all day, with lively navigation, animated percentage tickers, compact watchlists, and semantic color that actually pops. The fun is in the data behavior and navigation rhythm, not decorative effects.",
+      "keyCharacteristics": [
+        "Heavy grotesque sans display type with tight but readable spacing.",
+        "Consolas/Monaco-first monospace for tickers, percentages, shortcuts, and rule syntax.",
+        "Light analytical canvas by default, dark signal mode for alerting and automation.",
+        "Vivid red/green/cyan semantic tiles that read instantly.",
+        "Dense panels, tables, charts, and timelines with stable dimensions."
+      ],
+      "rules": [
+        {
+          "name": "The Pop Means Data Rule",
+          "body": "Bright green, red, and cyan are for market movement, risk, analyst state, and automation state. Never use them as random decoration.",
+          "section": "colors"
+        },
+        {
+          "name": "The Two Rooms Rule",
+          "body": "Use the light room for reading and research. Use the dark room for scanning, alerting, and automation supervision. Do not smear dark-mode styling across every screen just because trading tools often do.",
+          "section": "colors"
+        },
+        {
+          "name": "The Big Type Is Rare Rule",
+          "body": "The heavy display voice is powerful because it is rare. Do not use hero-scale type inside dense dashboards, tables, sidebars, or compact panels.",
+          "section": "typography"
+        },
+        {
+          "name": "The Ticker Type Rule",
+          "body": "Market symbols, percentages, rule syntax, and keyboard hints use Consolas/Monaco-style monospace. This is part of the product identity.",
+          "section": "typography"
+        },
+        {
+          "name": "The Flat Until State Rule",
+          "body": "Surfaces are flat at rest. Elevation appears only for structural shells or interactive state, never as decorative card haze.",
+          "section": "elevation"
+        }
+      ],
+      "dos": [
+        "Do build from the A+B direction: bright Instrument Panel for research, dark Signal Room for alerting and automation.",
+        "Do use the heavy sans display style from the reference image for major moments.",
+        "Do use Consolas, Monaco, SFMono-Regular, and Liberation Mono for ticker and rule language.",
+        "Do make semantic gain/loss colors pop, especially in ticker tiles, watchlists, charts, and analyst result states.",
+        "Do include non-color cues with red and green states: plus/minus signs, labels, icons, or position.",
+        "Do make navigation feel alive with percent tickers, compact status, and small state motion."
+      ],
+      "donts": [
+        "Don't make Stonks look boring, generic, or like a copied admin template.",
+        "Don't use beige/serif template styling, dull gray dashboards, washed-out semantic colors, generic fintech navy-and-gold, purple SaaS gradients, crypto-casino neon, glassmorphism as decoration, endless identical card grids, or terminal-only dark mode.",
+        "Don't use the rejected C/D color direction as the visual baseline; Atlas is a feature, not the muted look from that variant.",
+        "Don't use bright semantic colors as decoration when no data state is present.",
+        "Don't hide automation risk. Dry-run mode, blocked actions, audit logs, and kill switches must be visible in automation surfaces."
+      ]
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Light-mode primary action for research and portfolio surfaces.",
+      "html": "<button class=\"ds-btn-primary\">Add thesis</button>",
+      "css": ".ds-btn-primary { border: 0; border-radius: 999px; background: oklch(0.510 0.105 209); color: oklch(1 0 0); padding: 9px 12px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 720; line-height: 1; transition: background 150ms cubic-bezier(0.22, 1, 0.36, 1), transform 150ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-btn-primary:hover { background: oklch(0.560 0.115 209); transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: 2px solid oklch(0.690 0.145 205); outline-offset: 2px; }"
+    },
+    {
+      "name": "Signal Button",
+      "kind": "button",
+      "refersTo": "button-signal",
+      "description": "Dark-mode action for signal review and automation supervision.",
+      "html": "<button class=\"ds-btn-signal\">Review signal</button>",
+      "css": ".ds-btn-signal { border: 0; border-radius: 999px; background: oklch(0.690 0.145 205); color: oklch(0.085 0 0); padding: 9px 12px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 780; line-height: 1; transition: filter 150ms cubic-bezier(0.22, 1, 0.36, 1), transform 150ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-btn-signal:hover { filter: brightness(1.08); transform: translateY(-1px); } .ds-btn-signal:focus-visible { outline: 2px solid oklch(0.540 0.170 151); outline-offset: 2px; }"
+    },
+    {
+      "name": "Command Input",
+      "kind": "input",
+      "refersTo": "input-command",
+      "description": "Search and command field for tickers, rules, filings, analysts, and saved screens.",
+      "html": "<label class=\"ds-command\"><span>/</span><input value=\"Search ticker, rule, analyst, or filing\" /></label>",
+      "css": ".ds-command { display: inline-flex; align-items: center; gap: 9px; min-width: 280px; border: 1px solid oklch(0.875 0.014 220); border-radius: 10px; background: oklch(1 0 0); padding: 9px 10px; color: oklch(0.430 0.030 225); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 13px; } .ds-command span { color: oklch(0.510 0.105 209); font-family: Consolas, Monaco, 'SFMono-Regular', 'Liberation Mono', monospace; font-weight: 700; } .ds-command input { width: 100%; border: 0; outline: 0; background: transparent; color: oklch(0.165 0.018 230); font: inherit; } .ds-command:focus-within { border-color: oklch(0.510 0.105 209); box-shadow: 0 0 0 2px color-mix(in oklch, oklch(0.510 0.105 209) 18%, transparent); }"
+    },
+    {
+      "name": "Ticker Tile Gain",
+      "kind": "custom",
+      "refersTo": "ticker-tile-gain",
+      "description": "Positive market movement tile; always pair color with sign and label.",
+      "html": "<div class=\"ds-ticker-gain\"><strong>AI</strong><span>+4.2%</span></div>",
+      "css": ".ds-ticker-gain { display: grid; align-content: center; gap: 8px; width: 84px; min-height: 86px; border-radius: 10px; background: oklch(0.540 0.170 151); color: oklch(1 0 0); padding: 12px; font-family: Consolas, Monaco, 'SFMono-Regular', 'Liberation Mono', monospace; } .ds-ticker-gain strong { font-size: 20px; line-height: 1; } .ds-ticker-gain span { font-size: 13px; font-weight: 700; line-height: 1; }"
+    },
+    {
+      "name": "Ticker Tile Loss",
+      "kind": "custom",
+      "refersTo": "ticker-tile-loss",
+      "description": "Negative market movement tile; use vivid red and an explicit negative sign.",
+      "html": "<div class=\"ds-ticker-loss\"><strong>REIT</strong><span>-2.8%</span></div>",
+      "css": ".ds-ticker-loss { display: grid; align-content: center; gap: 8px; width: 84px; min-height: 86px; border-radius: 10px; background: oklch(0.590 0.215 28); color: oklch(1 0 0); padding: 12px; font-family: Consolas, Monaco, 'SFMono-Regular', 'Liberation Mono', monospace; } .ds-ticker-loss strong { font-size: 20px; line-height: 1; } .ds-ticker-loss span { font-size: 13px; font-weight: 700; line-height: 1; }"
+    },
+    {
+      "name": "Active Navigation Item",
+      "kind": "nav",
+      "refersTo": "nav-item-active",
+      "description": "A fun but compact nav item with label, shortcut, and optional live status.",
+      "html": "<a class=\"ds-nav-active\" href=\"#\"><span>Signals</span><code>+1.4%</code></a>",
+      "css": ".ds-nav-active { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 180px; border-radius: 9px; background: color-mix(in oklch, oklch(0.690 0.145 205) 14%, transparent); color: oklch(0.940 0.006 230); padding: 9px 10px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 13px; font-weight: 700; text-decoration: none; } .ds-nav-active code { color: oklch(0.540 0.170 151); font-family: Consolas, Monaco, 'SFMono-Regular', 'Liberation Mono', monospace; font-size: 10px; } .ds-nav-active:focus-visible { outline: 2px solid oklch(0.690 0.145 205); outline-offset: 2px; }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Dense analytical container for charts, watchlists, tables, rules, and thesis blocks.",
+      "html": "<section class=\"ds-panel\"><h3>Watchlist pulse</h3><p>Ranked by thesis drift</p></section>",
+      "css": ".ds-panel { width: 280px; border: 1px solid oklch(0.875 0.014 220); border-radius: 12px; background: oklch(1 0 0); color: oklch(0.165 0.018 230); padding: 14px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; } .ds-panel h3 { margin: 0; font-size: 13px; font-weight: 760; line-height: 1.2; } .ds-panel p { margin: 4px 0 0; color: oklch(0.430 0.030 225); font-family: Consolas, Monaco, 'SFMono-Regular', 'Liberation Mono', monospace; font-size: 11px; line-height: 1.35; }"
+    }
+  ]
+}
